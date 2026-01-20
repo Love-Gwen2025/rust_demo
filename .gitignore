@@ -1,1 +1,90 @@
-/target
+# ================================
+# Rust 项目 .gitignore
+# ================================
+
+# ---------- 构建输出 ----------
+# Cargo 编译产物目录
+/target/
+# 如果是库项目，忽略 Cargo.lock（可执行项目应该提交）
+# Cargo.lock
+
+# ---------- 调试和性能分析 ----------
+# 调试符号文件
+*.pdb
+# 性能分析数据
+perf.data
+perf.data.old
+flamegraph.svg
+# Valgrind 输出
+*.valgrind
+
+# ---------- IDE 和编辑器 ----------
+# VS Code
+.vscode/
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# IntelliJ IDEA / CLion / RustRover
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Vim / Neovim
+*.swp
+*.swo
+*~
+.netrwhist
+
+# Emacs
+*~
+\#*\#
+.dir-locals.el
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# ---------- 操作系统 ----------
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Linux
+.Trash-*
+
+# ---------- 其他 ----------
+# 环境变量文件
+.env
+.env.local
+.env.*.local
+
+# 日志文件
+*.log
+logs/
+
+# 临时文件
+*.tmp
+*.temp
+*.bak
+
+# 文档生成
+/doc/
+/target/doc/
+
+# 代码覆盖率报告
+*.gcno
+*.gcda
+*.gcov
+tarpaulin-report.html
+coverage/

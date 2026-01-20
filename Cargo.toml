@@ -4,3 +4,6 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
+
+# examples/ 目录下的所有 .rs 文件会自动识别
+# 无需手动配置！
