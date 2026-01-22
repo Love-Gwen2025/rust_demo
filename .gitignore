@@ -88,3 +88,4 @@ logs/
 *.gcov
 tarpaulin-report.html
 coverage/
+.ace-tool/

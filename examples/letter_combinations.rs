@@ -27,8 +27,14 @@ fn letter_combinations(digits: String) -> Vec<String> {
     let mut results: Vec<String> = Vec::new();
     let digits_chars: Vec<char> = digits.chars().collect();
 
-    // 启动回溯
-    backtrack(&phone_map, &digits_chars, 0, String::new(), &mut results);
+    // 启动回溯（传入可变引用）
+    backtrack(
+        &phone_map,
+        &digits_chars,
+        0,
+        &mut String::new(),
+        &mut results,
+    );
 
     results
 }
@@ -37,18 +43,19 @@ fn letter_combinations(digits: String) -> Vec<String> {
 /// - phone_map: 数字到字母的映射
 /// - digits: 输入的数字序列
 /// - index: 当前处理到第几个数字
-/// - current: 当前已组合的字符串
+/// - current: 当前已组合的字符串（可变引用，用于回溯）
 /// - results: 存放最终结果
 fn backtrack(
     phone_map: &[&str; 8],
     digits: &[char],
     index: usize,
-    current: String,
+    current: &mut String, // 可变引用，允许修改
     results: &mut Vec<String>,
 ) {
     // 递归终止条件：已处理完所有数字
     if index == digits.len() {
-        results.push(current);
+        // 收集结果时需要 clone，因为 current 后续还会被修改
+        results.push(current.clone());
         return;
     }
 
@@ -57,13 +64,11 @@ fn backtrack(
     let digit = digits[index];
     let letters = phone_map[(digit as usize) - ('2' as usize)];
 
-    // 遍历当前数字的每个可能字母
+    // 遍历当前数字对应的每个字母
     for letter in letters.chars() {
-        // 选择当前字母，递归处理下一个数字
-        let mut next = current.clone();
-        next.push(letter);
-        backtrack(phone_map, digits, index + 1, next, results);
-        // 回溯：这里不需要显式撤销，因为 `next` 是 clone 出来的新字符串
+        current.push(letter); // 1. 做选择：追加当前字母
+        backtrack(phone_map, digits, index + 1, current, results); // 2. 递归
+        current.pop(); // 3. 撤销选择：移除刚追加的字母（回溯）
     }
 }
 
